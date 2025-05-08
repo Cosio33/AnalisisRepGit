@@ -11,6 +11,7 @@ Este script permite analizar código de un repositorio de GitHub sin necesidad d
 ✅ Confirmación antes de ejecutar el código
 
 📌 Instalación
+
 1️⃣ Instalar dependencias en Termux
 
 pkg update && pkg install -y git python clang
