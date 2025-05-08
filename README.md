@@ -16,11 +16,18 @@ Este script permite analizar código de un repositorio de GitHub sin necesidad d
 pkg update && pkg install -y git python clang
 pip install pylint bandit cloc
 
-2️⃣ Dar permisos de ejecución
+2️⃣ Crea archivo Bash
+
+nano analizar_github.sh
+
+(Si prefieres usar vim, puedes hacerlo con vim analizar_github.sh).
+
+
+3️⃣ Dar permisos de ejecución
 
 chmod +x analizar_github.sh
 
-3️⃣ Ejecutar el script
+4️⃣ Ejecutar el script
 
 ./analizar_github.sh usuario/repositorio archivo.py
 
