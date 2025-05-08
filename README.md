@@ -1,14 +1,18 @@
 # AnalisisRepGit
 Análisis de reportorios de GitHub en Termux
 
-Este script permite analizar código de un repositorio de GitHub sin necesidad de copiarlo manualmente. Utiliza herramientas como pylint, bandit y cloc para detectar posibles vulnerabilidades y estadísticas del código. Además, proporciona una opción para eliminar el código si se considera sospechoso.
+Este script permite analizar código .py y .sh de un repositorio de GitHub sin necesidad de copiarlo manualmente. Utiliza herramientas como pylint, bandit,  y cloc para detectar posibles vulnerabilidades y estadísticas del código. Además, proporciona una opción para eliminar el código si se considera sospechoso.
 
 🚀 Características
 ✅ Clona repositorios de GitHub automáticamente
 ✅ Analiza seguridad con bandit, pylint y grep
 ✅ Muestra estadísticas de código con cloc
+✅ Usa bash -n para verificar la sintaxis sin ejecutar el código.
+✅ Detecta comandos peligrosos con grep -E.
+✅ Filtra archivos Python (.py) y Bash (.sh) automáticamente.
 ✅ Opción de eliminación si el código es malicioso
 ✅ Confirmación antes de ejecutar el código
+
 
 📌 Instalación
 
