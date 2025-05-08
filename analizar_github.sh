@@ -19,16 +19,28 @@ echo "🔹 Clonando repositorio..."
 rm -rf $DIRECTORIO
 git clone https://github.com/$REPO.git $DIRECTORIO
 
-# Analizar seguridad del código
+# Analizar el código según su tipo
 if [ -f "$DIRECTORIO/$ARCHIVO" ]; then
-    echo "🔹 Analizando código con pylint..."
-    pylint "$DIRECTORIO/$ARCHIVO"
+    EXTENSION="${ARCHIVO##*.}"
 
-    echo "🔹 Escaneando seguridad con Bandit..."
-    bandit -r "$DIRECTORIO"
+    if [ "$EXTENSION" == "py" ]; then
+        echo "🔹 Analizando código Python con pylint..."
+        pylint "$DIRECTORIO/$ARCHIVO"
 
-    echo "🔹 Buscando comandos peligrosos en el código..."
-    grep -E "(rm -rf|curl|wget|exec|eval)" "$DIRECTORIO/$ARCHIVO"
+        echo "🔹 Escaneando seguridad con Bandit..."
+        bandit -r "$DIRECTORIO"
+
+    elif [ "$EXTENSION" == "sh" ]; then
+        echo "🔹 Analizando sintaxis Bash..."
+        bash -n "$DIRECTORIO/$ARCHIVO"
+
+        echo "🔹 Buscando comandos peligrosos en el código..."
+        grep -E "(rm -rf|curl|wget|exec|eval)" "$DIRECTORIO/$ARCHIVO"
+
+    else
+        echo "⚠️ Tipo de archivo no soportado. Solo Python (.py) y Bash (.sh)."
+        exit 1
+    fi
 
     echo "🔹 Obteniendo estadísticas con cloc..."
     cloc "$DIRECTORIO"
@@ -47,7 +59,11 @@ if [ -f "$DIRECTORIO/$ARCHIVO" ]; then
     if [ "$ejecutar" == "s" ]; then
         echo "🔹 Ejecutando código..."
         cd "$DIRECTORIO"
-        python3 "$ARCHIVO"
+        if [ "$EXTENSION" == "py" ]; then
+            python3 "$ARCHIVO"
+        elif [ "$EXTENSION" == "sh" ]; then
+            bash "$ARCHIVO"
+        fi
     else
         echo "🚀 Código analizado, ejecución cancelada."
     fi
